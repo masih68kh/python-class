@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!-->
+<html class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage no-websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients no-cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers applicationcache svg inlinesvg smil svgclippaths" style="" lang="en"><!--<![endif]--><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Public Interfaces — Making Pythonic Classes  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="Public%20Interfaces%20%E2%80%94%20Making%20Pythonic%20Classes%20documentation_files/modernizr.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="Public%20Interfaces%20%E2%80%94%20Making%20Pythonic%20Classes%20documentation_files/documentation_options.js"></script>
+        <script src="Public%20Interfaces%20%E2%80%94%20Making%20Pythonic%20Classes%20documentation_files/jquery.js"></script>
+        <script src="Public%20Interfaces%20%E2%80%94%20Making%20Pythonic%20Classes%20documentation_files/underscore.js"></script>
+        <script src="Public%20Interfaces%20%E2%80%94%20Making%20Pythonic%20Classes%20documentation_files/doctools.js"></script>
+        <script src="Public%20Interfaces%20%E2%80%94%20Making%20Pythonic%20Classes%20documentation_files/language_data.js"></script>
+    
+    <script type="text/javascript" src="Public%20Interfaces%20%E2%80%94%20Making%20Pythonic%20Classes%20documentation_files/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="Public%20Interfaces%20%E2%80%94%20Making%20Pythonic%20Classes%20documentation_files/theme.css" type="text/css">
+  <link rel="stylesheet" href="Public%20Interfaces%20%E2%80%94%20Making%20Pythonic%20Classes%20documentation_files/pygments.css" type="text/css">
+    <link rel="index" title="Index" href="https://pythonic-classes.trey.io/genindex.html">
+    <link rel="search" title="Search" href="https://pythonic-classes.trey.io/search.html">
+    <link rel="next" title="Inheritance" href="https://pythonic-classes.trey.io/inheritance.html">
+    <link rel="prev" title="Dunder Methods" href="https://pythonic-classes.trey.io/basic-dunders.html">
+
+<style>
+.wy-menu-vertical p.plain {
+  color: #aaa;
+}
+.wy-menu-vertical a.plain {
+  display: inline;
+  padding: 0;
+  line-height: initial;
+  font-size: 100%;
+  color: #ddd;
+}
+.wy-menu-vertical a.plain:hover {
+  background: transparent;
+  color: #eee;
+}
+.wy-menu-vertical .bio {
+  padding-top: 4em;
+  padding-right: 0.5em;
+}
+@media screen and (max-width: 768px) {
+  .wy-menu-vertical .bio {
+    display: none;
+  }
+}
+@media screen and (max-height: 475px) {
+  .wy-menu-vertical .bio {
+    display: none;
+  }
+}
+</style>
+
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://pythonic-classes.trey.io/index.html" class="icon icon-home"> Making Pythonic Classes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+
+
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/test-onboarding.html">The Test Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/classes.html">Classes Review</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/properties.html">Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/basic-dunders.html">Dunder Methods</a></li>
+<li class="toctree-l1 current"><a class="reference internal current" href="#"><span class="toctree-expand"></span>Public Interfaces</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#class-methods">Class methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#static-methods">Static methods</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#class-attributes">Class Attributes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#type-hints">Type Hints</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#documentation">Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#interface-exercises"><span class="toctree-expand"></span>Interface Exercises</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#month-from-date">Month From Date</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#romannumeral-from-integer">RomanNumeral From Integer</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hidden-balance">Hidden Balance</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html">Inheritance</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/dataclasses.html">Class Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/advanced-dunders.html">Advanced Dunder Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/resources.html">Further Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/answers.html">Exercise Answers</a></li>
+</ul>
+
+            
+          
+
+<section class="bio">
+
+  <img src="Public%20Interfaces%20%E2%80%94%20Making%20Pythonic%20Classes%20documentation_files/93a988bd85040f58f8417dc4be78c7de.jpg" style="margin: 0 0.75em;" align="left">
+
+  <p class="plain">
+  Taught by <a href="http://treyhunner.com/" class="plain">Trey Hunner</a> of <a href="https://truthful.technology/" class="plain">Truthful Technology LLC</a>.
+  <a href="https://www.pythonmorsels.com/" class="plain">Practice Python weekly.</a>
+  </p>
+
+</section>
+
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="https://pythonic-classes.trey.io/index.html">Making Pythonic Classes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+
+  <div class="section" id="public-interfaces">
+<h1>Public Interfaces<a class="headerlink" href="#public-interfaces" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="class-methods">
+<h2>Class methods<a class="headerlink" href="#class-methods" title="Permalink to this headline">¶</a></h2>
+<p>Normally, we call methods on class instances.  Occasionally you may 
+have use for a method which can be called on the class itself.  In this 
+case, you can use the <code class="docutils literal notranslate"><span class="pre">@classmethod</span></code> decorator.</p>
+<p>When a class method is called on the class, the first implicit 
+argument will be the class (rather than an instance of the class).</p>
+<p>This may be used to provide alternate constructors:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+<span class="k">class</span> <span class="nc">Circle</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_area</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">area</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">area</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>Now we can create an instance of <code class="docutils literal notranslate"><span class="pre">Circle</span></code> by providing an area instead of a radius.  Subclasses of <code class="docutils literal notranslate"><span class="pre">Circle</span></code> may also use this method and the correct subclass will be passed in as <code class="docutils literal notranslate"><span class="pre">cls</span></code>.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">circle</span> <span class="o">=</span> <span class="n">Circle</span><span class="o">.</span><span class="n">from_area</span><span class="p">(</span><span class="mf">176.71458676442586</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">circle</span><span class="o">.</span><span class="n">radius</span>
+<span class="go">7.5</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">dict</span></code> class uses the <code class="docutils literal notranslate"><span class="pre">classmethod</span></code> decorator to provide the alternate constructor <code class="docutils literal notranslate"><span class="pre">fromkeys</span></code>.  The <code class="docutils literal notranslate"><span class="pre">datetime.datetime</span></code> class also uses the <code class="docutils literal notranslate"><span class="pre">classmethod</span></code> decorator to provide the alternate constructors <code class="docutils literal notranslate"><span class="pre">now</span></code>, <code class="docutils literal notranslate"><span class="pre">fromtimestamp</span></code>, and <code class="docutils literal notranslate"><span class="pre">fromordinal</span></code>.</p>
+</div>
+<div class="section" id="static-methods">
+<h2>Static methods<a class="headerlink" href="#static-methods" title="Permalink to this headline">¶</a></h2>
+<p>Occasionally you will have a function related to a class which does 
+not operate on instances of the class at all.  If you want to store a 
+function in a class that has no need for <code class="docutils literal notranslate"><span class="pre">self</span></code> or <code class="docutils literal notranslate"><span class="pre">cls</span></code>, you can use the <code class="docutils literal notranslate"><span class="pre">@staticmethod</span></code> decorator.</p>
+<p>For example, suppose you wanted to have a function that would convert
+ an angle (in degrees) to a grade.  We could put this inside the <code class="docutils literal notranslate"><span class="pre">Circle</span></code> class like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Circle</span><span class="p">:</span>
+
+    <span class="c1"># ...</span>
+
+    <span class="nd">@staticmethod</span>
+    <span class="k">def</span> <span class="nf">angle_to_grade</span><span class="p">(</span><span class="n">angle</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">tan</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">radians</span><span class="p">(</span><span class="n">angle</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>You would use it like this:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Circle</span><span class="o">.</span><span class="n">angle_to_grade</span><span class="p">(</span><span class="mi">45</span><span class="p">)</span>
+<span class="go">0.9999999999999999</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="class-attributes">
+<h2>Class Attributes<a class="headerlink" href="#class-attributes" title="Permalink to this headline">¶</a></h2>
+<p>You’ll sometimes see class-level attributes used in Python.</p>
+<p>Here’s a class-level attribute that stores all instances of its class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Point</span><span class="p">:</span>
+
+    <span class="n">all_points</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="n">x</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y</span> <span class="o">=</span> <span class="n">y</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">all_points</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"Point(x=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">x</span><span class="si">}</span><span class="s2">, y=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">y</span><span class="si">}</span><span class="s2">)"</span>
+</pre></div>
+</div>
+<p>Whenever we make a new <code class="docutils literal notranslate"><span class="pre">Point</span></code> object, it’ll add itself to <code class="docutils literal notranslate"><span class="pre">all_points</span></code>:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Point</span><span class="o">.</span><span class="n">all_points</span>
+<span class="go">[Point(x=1, y=2)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Point</span><span class="o">.</span><span class="n">all_points</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="ow">is</span> <span class="n">p</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Point</span><span class="o">.</span><span class="n">all_points</span>
+<span class="go">[Point(x=1, y=2), Point(x=3, y=4)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">q</span><span class="o">.</span><span class="n">all_points</span>
+<span class="go">[Point(x=1, y=2), Point(x=3, y=4)]</span>
+</pre></div>
+</div>
+<p>This is kind of a weird thing to do.
+We don’t normally mutate class-level attributes.
+They’re useful for storing things like default values that child classes can override/customize.</p>
+</div>
+<div class="section" id="type-hints">
+<h2>Type Hints<a class="headerlink" href="#type-hints" title="Permalink to this headline">¶</a></h2>
+<p>Python also has type hints which you can use to document your code.</p>
+<p>The usual convention for type annotations can be enforced using a static type checker called <a class="reference external" href="http://mypy-lang.org/">mypy</a>.</p>
+<p>You can install mypy with <code class="docutils literal notranslate"><span class="pre">pip</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ pip install mypy
+</pre></div>
+</div>
+<p>Once you have <code class="docutils literal notranslate"><span class="pre">mypy</span></code> installed, you can run it against code from the command-line.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+
+<span class="k">class</span> <span class="nc">Circle</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="o">=</span><span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_area</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">area</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">area</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">diameter</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">*</span> <span class="mi">2</span>
+
+    <span class="nd">@diameter</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">diameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diameter</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>And run <code class="docutils literal notranslate"><span class="pre">mypy</span></code> against it:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mypy circle.py
+Success: no issues found in <span class="m">1</span> <span class="nb">source</span> file
+</pre></div>
+</div>
+<p>We didn’t get any output because we don’t have any type annotations.</p>
+<p>We can ask <code class="docutils literal notranslate"><span class="pre">mypy</span></code> to require type annotations by running it in <code class="docutils literal notranslate"><span class="pre">--strict</span></code> mode:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ mypy --strict circle.py
+circle.py:5: error: Function is missing a <span class="nb">type</span> annotation
+circle.py:9: error: Function is missing a <span class="nb">type</span> annotation
+circle.py:13: error: Function is missing a <span class="k">return</span> <span class="nb">type</span> annotation
+circle.py:17: error: Function is missing a <span class="k">return</span> <span class="nb">type</span> annotation
+circle.py:21: error: Function is missing a <span class="nb">type</span> annotation
+Found <span class="m">5</span> errors in <span class="m">1</span> file <span class="o">(</span>checked <span class="m">1</span> <span class="nb">source</span> file<span class="o">)</span>
+</pre></div>
+</div>
+<p>We can add type hints to all arguments and all return values to fix this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">math</span>
+
+
+<span class="k">class</span> <span class="nc">Circle</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_area</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">area</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s1">'Circle'</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">area</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">diameter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">*</span> <span class="mi">2</span>
+
+    <span class="nd">@diameter</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">diameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diameter</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>Note that we need to put <cite>‘Circle’</cite> in quotes because <cite>Circle</cite> isn’t valid Python code before the <cite>Circle</cite> class has been defined.</p>
+<p>We could also do this by import <code class="docutils literal notranslate"><span class="pre">__future__.annotations</span></code> to delay evaluation of annotations, as will be the default in Python 4.0:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+
+<span class="k">class</span> <span class="nc">Circle</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_area</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">area</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Circle</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">area</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">diameter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">*</span> <span class="mi">2</span>
+
+    <span class="nd">@diameter</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">diameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diameter</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="documentation">
+<h2>Documentation<a class="headerlink" href="#documentation" title="Permalink to this headline">¶</a></h2>
+<p>Functions, modules, and classes can all have docstrings.
+If the very first statement in a function, module, or class is a string literal on its own, it is considered a docstring.</p>
+<p>Let’s document our whole <code class="docutils literal notranslate"><span class="pre">circle</span></code> module:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="sd">"""Tools for representing circle in Python."""</span>
+<span class="kn">from</span> <span class="nn">__future__</span> <span class="kn">import</span> <span class="n">annotations</span>
+<span class="kn">import</span> <span class="nn">math</span>
+
+
+<span class="k">class</span> <span class="nc">Circle</span><span class="p">:</span>
+
+    <span class="sd">"""A circle with radius, diameter, and area."""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">radius</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">radius</span>
+
+    <span class="nd">@classmethod</span>
+    <span class="k">def</span> <span class="nf">from_area</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">area</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Circle</span><span class="p">:</span>
+        <span class="sd">"""Return a new Circle with a radius appropriate for the given area."""</span>
+        <span class="k">return</span> <span class="bp">cls</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">sqrt</span><span class="p">(</span><span class="n">area</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span><span class="p">))</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">area</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">"""Return the area of the circle."""</span>
+        <span class="k">return</span> <span class="n">math</span><span class="o">.</span><span class="n">pi</span> <span class="o">*</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">**</span> <span class="mi">2</span>
+
+    <span class="nd">@property</span>
+    <span class="k">def</span> <span class="nf">diameter</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">float</span><span class="p">:</span>
+        <span class="sd">"""The diameter is radius * 2."""</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">*</span> <span class="mi">2</span>
+
+    <span class="nd">@diameter</span><span class="o">.</span><span class="n">setter</span>
+    <span class="k">def</span> <span class="nf">diameter</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">diameter</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kc">None</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">radius</span> <span class="o">=</span> <span class="n">diameter</span> <span class="o">/</span> <span class="mi">2</span>
+</pre></div>
+</div>
+<p>Docstrings can be used on functions, classes, and modules.  They must be the first string in each of these.</p>
+<p>We can see all this documentation using <code class="docutils literal notranslate"><span class="pre">help</span></code>:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">circle</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">help</span><span class="p">(</span><span class="n">circle</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Or by using <code class="docutils literal notranslate"><span class="pre">pydoc</span></code>:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>$ python -m pydoc circle
+</pre></div>
+</div>
+<p>Docstrings ideally should note what exceptions various methods/functions can raise and what attributes are available on classes.</p>
+<p><a class="reference external" href="https://www.python.org/dev/peps/pep-0257/">PEP 257</a> talks about how to write docstrings to document your code.</p>
+</div>
+<div class="section" id="interface-exercises">
+<h2>Interface Exercises<a class="headerlink" href="#interface-exercises" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="month-from-date">
+<h3>Month From Date<a class="headerlink" href="#month-from-date" title="Permalink to this headline">¶</a></h3>
+<p>This is a continuation of the <code class="docutils literal notranslate"><span class="pre">Month</span></code> exercise in <code class="docutils literal notranslate"><span class="pre">classes.py</span></code> that we saw earlier.
+Edit the <code class="docutils literal notranslate"><span class="pre">classes.py</span></code> file in the exercises directory to implement this exercise.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To test the changes for this exercise, you should modify the <code class="docutils literal notranslate"><span class="pre">MonthTests</span></code> class in <code class="docutils literal notranslate"><span class="pre">classes_test.py</span></code> to comment out the <code class="docutils literal notranslate"><span class="pre">@unittest.skip</span></code> lines which contain “Month from_date”</p>
+</div>
+<p>Add a <code class="docutils literal notranslate"><span class="pre">from_date</span></code> class method which will create a new month from a <code class="docutils literal notranslate"><span class="pre">datetime.date</span></code> object.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">date</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nye99</span> <span class="o">=</span> <span class="n">date</span><span class="p">(</span><span class="mi">1999</span><span class="p">,</span> <span class="mi">12</span><span class="p">,</span> <span class="mi">31</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dec99</span> <span class="o">=</span> <span class="n">Month</span><span class="o">.</span><span class="n">from_date</span><span class="p">(</span><span class="n">nye99</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">dec99</span>
+<span class="go">Month(1999, 12)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="romannumeral-from-integer">
+<h3>RomanNumeral From Integer<a class="headerlink" href="#romannumeral-from-integer" title="Permalink to this headline">¶</a></h3>
+<p>This is a continuation of the <code class="docutils literal notranslate"><span class="pre">RomanNumeral</span></code> exercise in <code class="docutils literal notranslate"><span class="pre">dunder.py</span></code> that we saw earlier.
+Edit the <code class="docutils literal notranslate"><span class="pre">dunder.py</span></code> file in the exercises directory to implement this exercise.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To test the changes for this exercise, you should modify the <code class="docutils literal notranslate"><span class="pre">RomanNumeralTests</span></code> class in <code class="docutils literal notranslate"><span class="pre">dunder_test.py</span></code> to comment out the <code class="docutils literal notranslate"><span class="pre">@unittest.skip</span></code> lines which contain “RomanNumeral from_int”</p>
+</div>
+<p>Modify your <code class="docutils literal notranslate"><span class="pre">RomanNumeral</span></code> class to add an alternate constructor, <code class="docutils literal notranslate"><span class="pre">from_int</span></code>, which will make a <code class="docutils literal notranslate"><span class="pre">RomanNumeral</span></code> object from an equivalent integer:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">RomanNumeral</span><span class="o">.</span><span class="n">from_int</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="go">RomanNumeral('IV')</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nineteen_ninety_nine</span> <span class="o">=</span> <span class="n">RomanNumeral</span><span class="o">.</span><span class="n">from_int</span><span class="p">(</span><span class="mi">1999</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">str</span><span class="p">(</span><span class="n">nineteen_ninety_nine</span><span class="p">)</span>
+<span class="go">'MCMXCIX'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">int</span><span class="p">(</span><span class="n">nineteen_ninety_nine</span><span class="p">)</span>
+<span class="go">1999</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="hidden-balance">
+<h3>Hidden Balance<a class="headerlink" href="#hidden-balance" title="Permalink to this headline">¶</a></h3>
+<p>This is a continuation of the <code class="docutils literal notranslate"><span class="pre">BankAccount</span></code> exercise in <code class="docutils literal notranslate"><span class="pre">classes.py</span></code> that we saw earlier.
+Edit the <code class="docutils literal notranslate"><span class="pre">classes.py</span></code> file in the exercises directory to implement this exercise.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>To test the changes for this exercise, you should modify the <code class="docutils literal notranslate"><span class="pre">BankAccountTests</span></code> class in <code class="docutils literal notranslate"><span class="pre">classes_test.py</span></code> to comment out the <code class="docutils literal notranslate"><span class="pre">@unittest.skip</span></code> lines which contain “Hidden Balance”</p>
+</div>
+<p>To test this exercise, run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">test.py</span> <span class="pre">BankAccount</span></code> from the exercises directory.</p>
+<p>Don’t reveal any hidden mutable <code class="docutils literal notranslate"><span class="pre">balance</span></code>-holding attributes in your class’s <code class="docutils literal notranslate"><span class="pre">dir</span></code> output:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">account</span> <span class="o">=</span> <span class="n">BankAccount</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">dir</span><span class="p">(</span><span class="n">account</span><span class="p">)</span>
+<span class="go">['__class__', '__delattr__', '__dict__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__le__', '__lt__', '__module__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', '__weakref__', 'balance', 'deposit', 'transfer', 'withdraw']</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="https://pythonic-classes.trey.io/inheritance.html" class="btn btn-neutral float-right" title="Inheritance" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="https://pythonic-classes.trey.io/basic-dunders.html" class="btn btn-neutral float-left" title="Dunder Methods" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr>
+
+  <div role="contentinfo">
+    <p>
+        © Copyright 2020, Trey Hunner
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+
+</body></html>

@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<!-- saved from url=(0049)https://pythonic-classes.trey.io/inheritance.html -->
+<html class=" js flexbox canvas canvastext webgl no-touch geolocation postmessage websqldatabase indexeddb hashchange history draganddrop websockets rgba hsla multiplebgs backgroundsize borderimage borderradius boxshadow textshadow opacity cssanimations csscolumns cssgradients cssreflections csstransforms csstransforms3d csstransitions fontface generatedcontent video audio localstorage sessionstorage webworkers no-applicationcache svg inlinesvg smil svgclippaths" lang="en" style=""><!--<![endif]--><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Inheritance — Making Pythonic Classes  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="./Inheritance — Making Pythonic Classes documentation_files/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="./Inheritance — Making Pythonic Classes documentation_files/documentation_options.js"></script>
+        <script src="./Inheritance — Making Pythonic Classes documentation_files/jquery.js"></script>
+        <script src="./Inheritance — Making Pythonic Classes documentation_files/underscore.js"></script>
+        <script src="./Inheritance — Making Pythonic Classes documentation_files/doctools.js"></script>
+        <script src="./Inheritance — Making Pythonic Classes documentation_files/language_data.js"></script>
+    
+    <script type="text/javascript" src="./Inheritance — Making Pythonic Classes documentation_files/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="./Inheritance — Making Pythonic Classes documentation_files/theme.css" type="text/css">
+  <link rel="stylesheet" href="./Inheritance — Making Pythonic Classes documentation_files/pygments.css" type="text/css">
+    <link rel="index" title="Index" href="https://pythonic-classes.trey.io/genindex.html">
+    <link rel="search" title="Search" href="https://pythonic-classes.trey.io/search.html">
+    <link rel="next" title="Class Helpers" href="https://pythonic-classes.trey.io/dataclasses.html">
+    <link rel="prev" title="Public Interfaces" href="https://pythonic-classes.trey.io/public-interfaces.html">
+
+<style>
+.wy-menu-vertical p.plain {
+  color: #aaa;
+}
+.wy-menu-vertical a.plain {
+  display: inline;
+  padding: 0;
+  line-height: initial;
+  font-size: 100%;
+  color: #ddd;
+}
+.wy-menu-vertical a.plain:hover {
+  background: transparent;
+  color: #eee;
+}
+.wy-menu-vertical .bio {
+  padding-top: 4em;
+  padding-right: 0.5em;
+}
+@media screen and (max-width: 768px) {
+  .wy-menu-vertical .bio {
+    display: none;
+  }
+}
+@media screen and (max-height: 475px) {
+  .wy-menu-vertical .bio {
+    display: none;
+  }
+}
+</style>
+
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="https://pythonic-classes.trey.io/index.html" class="icon icon-home"> Making Pythonic Classes
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="https://pythonic-classes.trey.io/search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs">
+    <input type="hidden" name="check_keywords" value="yes">
+    <input type="hidden" name="area" value="default">
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+
+
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/test-onboarding.html">The Test Framework</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/classes.html">Classes Review</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/properties.html">Properties</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/basic-dunders.html">Dunder Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/public-interfaces.html">Public Interfaces</a></li>
+<li class="toctree-l1 current"><a class="reference internal current" href="https://pythonic-classes.trey.io/inheritance.html#"><span class="toctree-expand"></span>Inheritance</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#inheritance-recap">Inheritance Recap</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#playing-nicely-with-inheritance"><span class="toctree-expand"></span>Playing Nicely With Inheritance</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#allowing-customization">Allowing Customization</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#dynamically-looking-things-up">Dynamically Looking Things Up</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#delegating-to-parents">Delegating to Parents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#duck-typing">Duck Typing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#abstract-base-classes">Abstract Base Classes</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#duck-typing-with-abcs">Duck Typing with ABCs</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#inheriting-from-list-dict">Inheriting from list/dict</a></li>
+<li class="toctree-l2"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#multiple-inheritance">Multiple Inheritance</a></li>
+<li class="toctree-l2 current"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#inheritance-exercises"><span class="toctree-expand"></span>Inheritance Exercises</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#cyclic-list">Cyclic List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#easy-dict">Easy Dict</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#minimum-balance">Minimum Balance</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#doubly-linked-node">Doubly-Linked Node</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#fieldtrackermixin">FieldTrackerMixin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#last-updated-dictionary">Last Updated Dictionary</a></li>
+<li class="toctree-l3"><a class="reference internal" href="https://pythonic-classes.trey.io/inheritance.html#orderedcounter">OrderedCounter</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/dataclasses.html">Class Helpers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/advanced-dunders.html">Advanced Dunder Methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/resources.html">Further Resources</a></li>
+<li class="toctree-l1"><a class="reference internal" href="https://pythonic-classes.trey.io/answers.html">Exercise Answers</a></li>
+</ul>
+
+            
+          
+
+<section class="bio">
+
+  <img src="./Inheritance — Making Pythonic Classes documentation_files/93a988bd85040f58f8417dc4be78c7de.jpeg" align="left" style="margin: 0 0.75em;">
+
+  <p class="plain">
+  Taught by <a href="http://treyhunner.com/" class="plain">Trey Hunner</a> of <a href="https://truthful.technology/" class="plain">Truthful Technology LLC</a>.
+  <a href="https://www.pythonmorsels.com/" class="plain">Practice Python weekly.</a>
+  </p>
+
+</section>
+
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="https://pythonic-classes.trey.io/index.html">Making Pythonic Classes</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+
+  <div class="section" id="inheritance">
+<h1>Inheritance<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#inheritance" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="inheritance-recap">
+<h2>Inheritance Recap<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#inheritance-recap" title="Permalink to this headline">¶</a></h2>
+<p>Here’s a class that inherits from another class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MinimumBalanceAccount</span><span class="p">(</span><span class="n">BankAccount</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">withdraw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">amount</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Can't withdraw $</span><span class="si">{</span><span class="n">amount</span><span class="si">}</span><span class="s2"> (balance is $</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">withdraw</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This class, <code class="docutils literal notranslate"><span class="pre">MinimumBalanceAccount</span></code>, is a subclass of <code class="docutils literal notranslate"><span class="pre">BankAccount</span></code>.
+It has all the same functionality of <code class="docutils literal notranslate"><span class="pre">BankAccount</span></code> except that it doesn’t allow withdrawing more money than we have.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">account</span> <span class="o">=</span> <span class="n">MinimumBalanceAccount</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">account</span><span class="o">.</span><span class="n">balance</span>
+<span class="go">100</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">account</span><span class="o">.</span><span class="n">withdraw</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">account</span><span class="o">.</span><span class="n">balance</span>
+<span class="go">80</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">account</span><span class="o">.</span><span class="n">withdraw</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="go">ValueError: Can't withdraw $100 (balance is $80)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">account</span><span class="o">.</span><span class="n">balance</span>
+<span class="go">80</span>
+</pre></div>
+</div>
+<p>Note that we need to explicitly call <code class="docutils literal notranslate"><span class="pre">super().withdraw(amount)</span></code> to ensure the <code class="docutils literal notranslate"><span class="pre">withdraw</span></code> method from our parent class <code class="docutils literal notranslate"><span class="pre">BankAccount</span></code> is called.</p>
+<p>This is a silly example of inheritance because this particular functionality should <em>probably</em> be in the <code class="docutils literal notranslate"><span class="pre">BankAccount</span></code> class as well.
+This isn’t necessarily an uncommon use of inheritance though: if you need to take a data structure or a class that already exists in Python or in a library you’re using and tweak a little bit of functionality, inheritance is one way to do that.</p>
+</div>
+<div class="section" id="playing-nicely-with-inheritance">
+<h2>Playing Nicely With Inheritance<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#playing-nicely-with-inheritance" title="Permalink to this headline">¶</a></h2>
+<p>If you’re implementing a class that’s meant to be inherited by other classes, you’ll want to consider how you could go out of your way to make the process of inheriting from your class easy and pain free.</p>
+<p>You’ll often want to consider either:</p>
+<ol class="arabic simple">
+<li><p>Can child classes easily customize a certain bit of behavior by overriding a particular method?</p></li>
+<li><p>Could I look some information up dynamically so that child classes don’t even <em>need</em> to customize a particular bit of behavior?</p></li>
+</ol>
+<div class="section" id="allowing-customization">
+<h3>Allowing Customization<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#allowing-customization" title="Permalink to this headline">¶</a></h3>
+<p>Number 1 usually comes in the form of making helper methods that are called by more concrete methods.</p>
+<p>For example if your <code class="docutils literal notranslate"><span class="pre">BankAccount</span></code> implemented the <code class="docutils literal notranslate"><span class="pre">transfer</span></code> method like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">transfer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_account</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">balance</span> <span class="o">-=</span> <span class="n">amount</span>
+    <span class="n">other_account</span><span class="o">.</span><span class="n">balance</span> <span class="o">+=</span> <span class="n">amount</span>
+</pre></div>
+</div>
+<p>That <code class="docutils literal notranslate"><span class="pre">MinimumBalanceAccount</span></code> would also need to override the <code class="docutils literal notranslate"><span class="pre">transfer</span></code> method to ensure it doesn’t withdraw too much:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MinimumBalanceAccount</span><span class="p">(</span><span class="n">BankAccount</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">transfer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_account</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">amount</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Can't withdraw $</span><span class="si">{</span><span class="n">amount</span><span class="si">}</span><span class="s2"> (balance is $</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">transfer</span><span class="p">(</span><span class="n">other_account</span><span class="p">,</span> <span class="n">amount</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">withdraw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">amount</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Can't withdraw $</span><span class="si">{</span><span class="n">amount</span><span class="si">}</span><span class="s2"> (balance is $</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">withdraw</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>If instead we implemented <code class="docutils literal notranslate"><span class="pre">transfer</span></code> by delegating to the <code class="docutils literal notranslate"><span class="pre">withdraw</span></code> and <code class="docutils literal notranslate"><span class="pre">deposit</span></code> methods:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">transfer</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other_account</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">withdraw</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
+    <span class="n">other_account</span><span class="o">.</span><span class="n">deposit</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Our child class could customize just the <code class="docutils literal notranslate"><span class="pre">withdraw</span></code> method (as before) and both <code class="docutils literal notranslate"><span class="pre">withdraw</span></code> and <code class="docutils literal notranslate"><span class="pre">transfer</span></code> would raise this overdraft exception when appropriate:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">MinimumBalanceAccount</span><span class="p">(</span><span class="n">BankAccount</span><span class="p">):</span>
+
+    <span class="k">def</span> <span class="nf">withdraw</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">amount</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">amount</span> <span class="o">&gt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="sa">f</span><span class="s2">"Can't withdraw $</span><span class="si">{</span><span class="n">amount</span><span class="si">}</span><span class="s2"> (balance is $</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="si">}</span><span class="s2">)"</span><span class="p">)</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">withdraw</span><span class="p">(</span><span class="n">amount</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="dynamically-looking-things-up">
+<h3>Dynamically Looking Things Up<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#dynamically-looking-things-up" title="Permalink to this headline">¶</a></h3>
+<p>When implementing the string representation of our <code class="docutils literal notranslate"><span class="pre">BankAccount</span></code> class, we could have hard-code the name of our class like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">"BankAccount(balance=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="si">!r}</span><span class="s2">)"</span>
+</pre></div>
+</div>
+<p>But that’d mean that subclasses would see the same representation by default, which doesn’t seem right:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">account</span> <span class="o">=</span> <span class="n">MinimumBalanceAccount</span><span class="p">(</span><span class="n">balance</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">account</span>
+<span class="go">BankAcconut(balance=10)</span>
+</pre></div>
+</div>
+<p>We could fix this by looking up our class name dynamically.
+We can do that by looking at the <code class="docutils literal notranslate"><span class="pre">__name__</span></code> attribute of our class (which we can get with <code class="docutils literal notranslate"><span class="pre">type</span></code>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">(balance=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="si">!r}</span><span class="s2">)"</span>
+</pre></div>
+</div>
+<p>That way subclasses would see the correct type of class, even if they <em>don’t</em> choose to override the <code class="docutils literal notranslate"><span class="pre">__repr__</span></code> method:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">account</span> <span class="o">=</span> <span class="n">MinimumBalanceAccount</span><span class="p">(</span><span class="n">balance</span><span class="o">=</span><span class="mi">10</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">account</span>
+<span class="go">MinimumBalanceAccount(balance=10)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="delegating-to-parents">
+<h2>Delegating to Parents<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#delegating-to-parents" title="Permalink to this headline">¶</a></h2>
+<p>Parent classes should ensure they allow customization to play nicely with child classes by allowing customization and delegating to child classes when appropriate.</p>
+<p>Likewise, child classes should delegate to the functionality provided by their parent classes whenever possible.</p>
+<p>Here’s a class that inherits from another class:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">NamedAccount</span><span class="p">(</span><span class="n">BankAccount</span><span class="p">):</span>
+
+    <span class="sd">"""Bank account with an account name."""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">balance</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">balance</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This class, <code class="docutils literal notranslate"><span class="pre">NamedAccount</span></code>, is a subclass of <code class="docutils literal notranslate"><span class="pre">BankAccount</span></code>.</p>
+<p>All of the functionality of <code class="docutils literal notranslate"><span class="pre">BankAccount</span></code> is inherited by default:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bank_account</span> <span class="kn">import</span> <span class="n">NamedAccount</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nameless_account</span> <span class="o">=</span> <span class="n">NamedAccount</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nameless_account</span><span class="o">.</span><span class="n">name</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trey_account</span> <span class="o">=</span> <span class="n">NamedAccount</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"Trey"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trey_account</span><span class="o">.</span><span class="n">name</span>
+<span class="go">'Trey'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trey_account</span><span class="o">.</span><span class="n">deposit</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trey_account</span><span class="o">.</span><span class="n">transfer</span><span class="p">(</span><span class="n">nameless_account</span><span class="p">,</span> <span class="mi">40</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">trey_account</span><span class="o">.</span><span class="n">balance</span>
+<span class="go">60</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">nameless_account</span><span class="o">.</span><span class="n">balance</span>
+<span class="go">40</span>
+</pre></div>
+</div>
+<p>Note that we need to explicitly call <code class="docutils literal notranslate"><span class="pre">super().__init__(balance)</span></code> to ensure the initializer for our parent class <code class="docutils literal notranslate"><span class="pre">BankAccount</span></code> is called.</p>
+<p>If our <code class="docutils literal notranslate"><span class="pre">BankAccount</span></code> class’ initializer took more arguments, we’d need to capture those and pass them up to its initializer as well.</p>
+<p>For example let’s modify <code class="docutils literal notranslate"><span class="pre">BankAccount</span></code> to also accept an account type:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">BankAccount</span><span class="p">:</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">balance</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">'savings'</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">type</span> <span class="o">=</span> <span class="nb">type</span>
+
+    <span class="c1"># ...</span>
+</pre></div>
+</div>
+<p>Now that <code class="docutils literal notranslate"><span class="pre">BankAccount</span></code> accepts another argument, we should modify <code class="docutils literal notranslate"><span class="pre">NamedAccount</span></code> to <em>also</em> accept another argument:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">NamedAccount</span><span class="p">(</span><span class="n">BankAccount</span><span class="p">):</span>
+
+    <span class="sd">"""Bank account with an account name."""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">balance</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="s1">'savings'</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">balance</span><span class="o">=</span><span class="n">balance</span><span class="p">,</span> <span class="nb">type</span><span class="o">=</span><span class="nb">type</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This is starting to feal pretty redundant.
+Every time we modify the arguments accepted by <code class="docutils literal notranslate"><span class="pre">BankAccount</span></code>, we’ll probably also want to modify the arguments accepted by <code class="docutils literal notranslate"><span class="pre">NamedAccount</span></code>.</p>
+<p>Also note that we repeat the default values of <code class="docutils literal notranslate"><span class="pre">balance=0</span></code> and <code class="docutils literal notranslate"><span class="pre">type='savings</span></code> in our initializer because we want to allow customization of those arguments but we also still want those arguments to have default values.</p>
+<p>We could do things differently by accepting all arguments and passing them up to our parent class.
+We can use Python’s <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">**</span></code> operators to do this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">NamedAccount</span><span class="p">(</span><span class="n">BankAccount</span><span class="p">):</span>
+
+    <span class="sd">"""Bank account with an account name."""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="n">name</span>
+        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This allows us to be lazy programmers.
+Instead of explicitly repeating each argument our parent class accepts and their default values, we can just say “capture all the positional arguments and all the keyword arguments” and then “take those captured positional and keyword arguments and pass them up to our parent class’s initializer”.</p>
+<p>If you’re unfamiliar with these uses of <code class="docutils literal notranslate"><span class="pre">*</span></code> and <code class="docutils literal notranslate"><span class="pre">**</span></code> in Python, you can find more information on these operations in <a class="reference external" href="https://treyhunner.com/2018/10/asterisks-in-python-what-they-are-and-how-to-use-them/#Positional_arguments_with_keyword-only_arguments">this article I’ve written on capturing positional and keyword arguments</a>.</p>
+<p>Using <code class="docutils literal notranslate"><span class="pre">*args</span></code> and <code class="docutils literal notranslate"><span class="pre">**kwargs</span></code> is one of the unique ways that we can delegate work to parent classes in Python.</p>
+<p>Note that you don’t always <em>need</em> to call <code class="docutils literal notranslate"><span class="pre">super</span></code> in each overwritten method, but when you override a method you often find calling <code class="docutils literal notranslate"><span class="pre">super</span></code> is usually useful.
+Customizing the string representation of an object is a time where you probably <em>won’t</em> call <code class="docutils literal notranslate"><span class="pre">super</span></code> (since there’s no easy way to use the string that comes back from your parent class when constructing your own string representation):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">"NamedAccount(balance=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="si">!r}</span><span class="s2">, name=</span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">balance</span><span class="si">!r}</span><span class="s2">)"</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="duck-typing">
+<h2>Duck Typing<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#duck-typing" title="Permalink to this headline">¶</a></h2>
+<p>Instead of inheriting from a class, you might be able to wrap around the class.</p>
+<p>The file <a class="reference download internal" download="" href="https://pythonic-classes.trey.io/_downloads/208eaecead744c56026cc9d93163d3d0/easyjson1.py"><code class="xref download docutils literal notranslate"><span class="pre">easyjson1.py</span></code></a> contains an implementation of a rudimentary JSON-parsing library which represents JSON data in dictionary-like and list-like structures which have some extra functionality (attribute lookups are supported as well as querying child objects for specific attributes).</p>
+<p>Given this JSON data:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="s2">"""{</span>
+<span class="s2">        "result": {</span>
+<span class="s2">            "users": [{</span>
+<span class="s2">                "id": 4,</span>
+<span class="s2">                "profile": {"id": 16, "name": "Mildred"}</span>
+<span class="s2">            }, {</span>
+<span class="s2">                "id": 6,</span>
+<span class="s2">                "profile": {"id": 18, "name": "James"}</span>
+<span class="s2">            }, {</span>
+<span class="s2">                "id": 5,</span>
+<span class="s2">                "profile": {"id": 17, "name": "Gloria"}</span>
+<span class="s2">            }, {</span>
+<span class="s2">                "id": 3,</span>
+<span class="s2">                "profile": {"id": 15, "name": "William"}</span>
+<span class="s2">            }]</span>
+<span class="s2">        }</span>
+<span class="s2">    }"""</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">parse</span></code> function will return nested dictionary-like and list-like objects which supports special features for querying our JSON data:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">query</span> <span class="o">=</span> <span class="n">easyjson</span><span class="o">.</span><span class="n">parse</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">query</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">users</span>
+<span class="go">[{'id': 4, 'profile': {'id': 16, 'name': 'Mildred'}}, {'id': 6, 'profile': {'id': 18, 'name': 'James'}}, {'id': 5, 'profile': {'id': 17, 'name': 'Gloria'}}, {'id': 3, 'profile': {'id': 15, 'name': 'William'}}]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">query</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">users</span><span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="o">.</span><span class="n">id</span>
+<span class="go">[4, 6, 5, 3]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">query</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">users</span><span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="o">.</span><span class="n">profile</span><span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="o">.</span><span class="n">name</span>
+<span class="go">['Mildred', 'James', 'Gloria', 'William']</span>
+</pre></div>
+</div>
+<p>Note that the dictionary-like <code class="docutils literal notranslate"><span class="pre">JSONObject</span></code> class in this module doesn’t actually inherit from <code class="docutils literal notranslate"><span class="pre">dict</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">JSONObject</span><span class="p">:</span>
+
+    <span class="sd">"""Class for representing a JSON "object"."""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="o">...</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">JSONEllipsisArray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__eq__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">other</span><span class="p">):</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="n">JSONObject</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">==</span> <span class="n">other</span><span class="o">.</span><span class="vm">__dict__</span>
+        <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">other</span><span class="p">,</span> <span class="nb">dict</span><span class="p">):</span>
+            <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span> <span class="o">==</span> <span class="n">other</span>
+        <span class="k">return</span> <span class="bp">NotImplemented</span>
+
+    <span class="k">def</span> <span class="nf">get</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="nf">keys</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">keys</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">values</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="nf">items</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__matmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">JSONArray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_matches</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="n">JSONObject</span><span class="p">,</span> <span class="n">JSONArray</span><span class="p">)):</span>
+                <span class="k">yield from</span> <span class="n">obj</span><span class="o">.</span><span class="n">_matches</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>It acts like a dictionary and can (mostly) be used like one but it isn’t <em>actually</em> a dictionary.
+This works because of duck typing.</p>
+<p>We <em>are</em> using a dictionary here, but we’re wrapping around it (in our <code class="docutils literal notranslate"><span class="pre">self._data</span></code> attribute) rather than inheriting from it.</p>
+<p>The benefit of this is that we don’t necesarily need to do things exactly the way dictionaries do: we could make some methods on our class work quite differently than the <code class="docutils literal notranslate"><span class="pre">dict</span></code> class without accidentally breaking something.</p>
+</div>
+<div class="section" id="abstract-base-classes">
+<h2>Abstract Base Classes<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#abstract-base-classes" title="Permalink to this headline">¶</a></h2>
+<p>We could save ourselves the trouble of implementing a few of these methods (<code class="docutils literal notranslate"><span class="pre">__eq__</span></code>, <code class="docutils literal notranslate"><span class="pre">keys</span></code>, <code class="docutils literal notranslate"><span class="pre">values</span></code>, <code class="docutils literal notranslate"><span class="pre">items</span></code>, <code class="docutils literal notranslate"><span class="pre">get</span></code>) by inheriting from <code class="docutils literal notranslate"><span class="pre">collections.abc.Mapping</span></code>, which will do that work for us (as in <a class="reference download internal" download="" href="https://pythonic-classes.trey.io/_downloads/d75b3d8305e855d1fcd483b1d83ed4b1/easyjson2.py"><code class="xref download docutils literal notranslate"><span class="pre">easyjson2.py</span></code></a>):</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Mapping</span>
+
+
+<span class="k">class</span> <span class="nc">JSONObject</span><span class="p">(</span><span class="n">Mapping</span><span class="p">):</span>
+
+    <span class="sd">"""Class for representing a JSON "object"."""</span>
+
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">obj</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">obj</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__getitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">key</span> <span class="ow">is</span> <span class="o">...</span><span class="p">:</span>
+            <span class="k">return</span> <span class="n">JSONEllipsisArray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+
+    <span class="k">def</span> <span class="fm">__iter__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">iter</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__len__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">return</span> <span class="nb">repr</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__dict__</span><span class="p">)</span>
+
+    <span class="k">def</span> <span class="fm">__matmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">JSONArray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_matches</span><span class="p">(</span><span class="n">name</span><span class="p">))</span>
+
+    <span class="k">def</span> <span class="nf">_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">name</span> <span class="ow">in</span> <span class="bp">self</span><span class="p">:</span>
+            <span class="k">yield</span> <span class="bp">self</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+        <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">values</span><span class="p">():</span>
+            <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="p">(</span><span class="n">JSONObject</span><span class="p">,</span> <span class="n">JSONArray</span><span class="p">)):</span>
+                <span class="k">yield from</span> <span class="n">obj</span><span class="o">.</span><span class="n">_matches</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">Mapping</span></code> class requires certain core dictionary methods to be implemented (<code class="docutils literal notranslate"><span class="pre">__getitem__</span></code>, <code class="docutils literal notranslate"><span class="pre">__iter__</span></code>, <code class="docutils literal notranslate"><span class="pre">__len__</span></code>) and it will implement the rest of the methods for us.</p>
+</div>
+<div class="section" id="duck-typing-with-abcs">
+<h2>Duck Typing with ABCs<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#duck-typing-with-abcs" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">isinstance</span></code> function can check whether an object is an instance of a particular class.</p>
+<p>We normally try to avoid using <code class="docutils literal notranslate"><span class="pre">isinstance</span></code> in Python because we prefer duck typing (check the behavior of objects) rather than strong type checking (checking the class of an object).</p>
+<p>You actually <em>should</em> use the classes in the <code class="docutils literal notranslate"><span class="pre">collections.abc</span></code> for duck typing though.</p>
+<p>The reason is that these classes have customized the behavior of <code class="docutils literal notranslate"><span class="pre">isinstance</span></code>.
+Let’s look at an example.</p>
+<p>Here are all the base classes of <code class="docutils literal notranslate"><span class="pre">list</span></code> and <code class="docutils literal notranslate"><span class="pre">set</span></code>:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">list</span><span class="o">.</span><span class="vm">__mro__</span>
+<span class="go">(&lt;class 'list'&gt;, &lt;class 'object'&gt;)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">set</span><span class="o">.</span><span class="vm">__mro__</span>
+<span class="go">(&lt;class 'set'&gt;, &lt;class 'object'&gt;)</span>
+</pre></div>
+</div>
+<p>Now let’s check whether instances of these classes inherit from <code class="docutils literal notranslate"><span class="pre">Iterable</span></code> or <code class="docutils literal notranslate"><span class="pre">Sequence</span></code>:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">collections.abc</span> <span class="kn">import</span> <span class="n">Iterable</span><span class="p">,</span> <span class="n">Sequence</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">Iterable</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span> <span class="n">Iterable</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">Sequence</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">({</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span> <span class="n">Sequence</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>How is it possible that these both inherit from <code class="docutils literal notranslate"><span class="pre">Iterable</span></code> and <code class="docutils literal notranslate"><span class="pre">list</span></code> also inherits from <code class="docutils literal notranslate"><span class="pre">Sequence</span></code>?</p>
+<p>It turns out that <code class="docutils literal notranslate"><span class="pre">isinstance</span></code> is customizable:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Iterable</span><span class="o">.</span><span class="fm">__instancecheck__</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+<p>We could see that this method is checked by deleting it and watching the <code class="docutils literal notranslate"><span class="pre">isinstance</span></code> check fail:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="nb">type</span><span class="p">(</span><span class="n">Iterable</span><span class="p">)</span><span class="o">.</span><span class="fm">__instancecheck__</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">isinstance</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">],</span> <span class="n">Iterable</span><span class="p">)</span>
+<span class="go">False</span>
+</pre></div>
+</div>
+<p>So you can often use <code class="docutils literal notranslate"><span class="pre">isinstance</span></code> if you want to check whether something is an iterable.</p>
+<p>Even if a class doesn’t inherit from one of the built-in collections, it may <a class="reference external" href="https://docs.python.org/3/library/abc.html#abc.ABCMeta.register">register</a> itself with them to note that it implements its functionality fully.</p>
+</div>
+<div class="section" id="inheriting-from-list-dict">
+<h2>Inheriting from list/dict<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#inheriting-from-list-dict" title="Permalink to this headline">¶</a></h2>
+<p>Note that inheriting from <code class="docutils literal notranslate"><span class="pre">list</span></code> and <code class="docutils literal notranslate"><span class="pre">dict</span></code> is often a bad idea in Python because the <code class="docutils literal notranslate"><span class="pre">list</span></code> and <code class="docutils literal notranslate"><span class="pre">dict</span></code> classes hard-code a lot of functionality in each of their methods.
+For example the <code class="docutils literal notranslate"><span class="pre">get</span></code> method in <code class="docutils literal notranslate"><span class="pre">dict</span></code> doesn’t call <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code>, even though you’d expect that it would.</p>
+<p>You can find examples of why <code class="docutils literal notranslate"><span class="pre">list</span></code> and <code class="docutils literal notranslate"><span class="pre">dict</span></code> inheritance is often a bad idea in my article <a class="reference external" href="https://treyhunner.com/2019/04/why-you-shouldnt-inherit-from-list-and-dict-in-python/">The problem with inheriting from dict and list in Python</a>.</p>
+<p>Instead of inheriting from <code class="docutils literal notranslate"><span class="pre">dict</span></code> (as in <a class="reference download internal" download="" href="https://pythonic-classes.trey.io/_downloads/b14b5fbf3c7132b704c926dd593d44a8/easyjson4.py"><code class="xref download docutils literal notranslate"><span class="pre">easyjson4.py</span></code></a>), I recommend inheriting from <code class="docutils literal notranslate"><span class="pre">UserDict</span></code> (as in <a class="reference download internal" download="" href="https://pythonic-classes.trey.io/_downloads/9015f0e2dd8aa3a9afacb6daa12862b3/easyjson3.py"><code class="xref download docutils literal notranslate"><span class="pre">easyjson3.py</span></code></a>).</p>
+</div>
+<div class="section" id="multiple-inheritance">
+<h2>Multiple Inheritance<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#multiple-inheritance" title="Permalink to this headline">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">abc</span></code> module has helpers for making abstract base classes that require specific methods to be implemented on child classes.
+That’s how the classes in <code class="docutils literal notranslate"><span class="pre">collections.abc</span></code> are implemented.</p>
+<p>Here’s a class that acts as an abstract base class that requires child classes to have a <code class="docutils literal notranslate"><span class="pre">_matches</span></code> method:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">abc</span> <span class="kn">import</span> <span class="n">ABC</span><span class="p">,</span> <span class="n">abstractmethod</span>
+
+
+<span class="k">class</span> <span class="nc">JSONMixin</span><span class="p">(</span><span class="n">ABC</span><span class="p">):</span>
+
+    <span class="vm">__slots__</span> <span class="o">=</span> <span class="p">()</span>
+
+    <span class="k">def</span> <span class="fm">__matmul__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">return</span> <span class="n">JSONArray</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_matches</span><span class="p">(</span><span class="n">key</span><span class="p">))</span>
+
+    <span class="nd">@abstractmethod</span>
+    <span class="k">def</span> <span class="nf">_matches</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+        <span class="k">pass</span>
+</pre></div>
+</div>
+<p>We can use this class by inheriting from it along with the other classes we’re inheriting from:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">JSONObject</span><span class="p">(</span><span class="n">JSONMixin</span><span class="p">,</span> <span class="n">Mapping</span><span class="p">):</span>
+
+    <span class="sd">"""Class for representing a JSON "object"."""</span>
+
+    <span class="c1"># ...</span>
+
+<span class="k">class</span> <span class="nc">JSONArray</span><span class="p">(</span><span class="n">JSONMixin</span><span class="p">,</span> <span class="n">Sequence</span><span class="p">):</span>
+
+<span class="sd">"""Class for representing a JSON "array"."""</span>
+
+    <span class="c1"># ...</span>
+</pre></div>
+</div>
+<p>This allows us to remove the <code class="docutils literal notranslate"><span class="pre">__matmul__</span></code> method from <code class="docutils literal notranslate"><span class="pre">JSONObject</span></code> and <code class="docutils literal notranslate"><span class="pre">JSONArray</span></code>.</p>
+<p>We’re using multiple inheritance here, which Python supports (despite it being dangerous/unwieldy to use if you’re not careful).
+I don’t usually recommend using it unless you’re making a <a class="reference external" href="https://easyaspython.com/mixins-for-fun-and-profit-cb9962760556">mixin class</a>, as we are above.
+All “mixin” classes come before the base class (the last one listed) and they should add functionality that is independent of the base class or augment functionality that is tightly coupled to the base class.
+You likely won’t make your own mixin classes often, but you may encounter other libraries that use them.</p>
+</div>
+<div class="section" id="inheritance-exercises">
+<h2>Inheritance Exercises<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#inheritance-exercises" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="cyclic-list">
+<h3>Cyclic List<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#cyclic-list" title="Permalink to this headline">¶</a></h3>
+<p>This is the <code class="docutils literal notranslate"><span class="pre">CyclicList</span></code> exercise in <code class="docutils literal notranslate"><span class="pre">inheritance.py</span></code>.</p>
+<p>Create a list-like data structure that loops in a cyclic manner:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">inheritance</span> <span class="kn">import</span> <span class="n">CyclicList</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">numbers</span> <span class="o">=</span> <span class="n">CyclicList</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">numbers</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+<span class="go">2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">numbers</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span>
+<span class="go">3</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">numbers</span><span class="p">[</span><span class="mi">12</span><span class="p">]</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">numbers</span><span class="p">[</span><span class="mi">35</span><span class="p">]</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">numbers</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_list</span><span class="p">[</span><span class="o">-</span><span class="mi">6</span><span class="p">]</span>
+<span class="go">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_list</span><span class="o">.</span><span class="n">pop</span><span class="p">()</span>
+<span class="go">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_list</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">len</span><span class="p">(</span><span class="n">my_list</span><span class="p">)</span>
+<span class="go">3</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="easy-dict">
+<h3>Easy Dict<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#easy-dict" title="Permalink to this headline">¶</a></h3>
+<p>This is the <code class="docutils literal notranslate"><span class="pre">EasyDict</span></code> exercise in <code class="docutils literal notranslate"><span class="pre">inheritance.py</span></code>.  Edit the file  <code class="docutils literal notranslate"><span class="pre">inheritance.py</span></code> in the exercises directory to implement this exercise.  To test it, run <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">test.py</span> <span class="pre">EasyDict</span></code> from the exercises directory.</p>
+<p>Make an <code class="docutils literal notranslate"><span class="pre">EasyDict</span></code> class that can be used with both attribute and item syntax.
+It should take an optional dictionary as initial input.</p>
+<p>Example:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">a</span> <span class="o">=</span> <span class="n">EasyDict</span><span class="p">({</span><span class="s1">'ball'</span><span class="p">:</span> <span class="s2">"purple"</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">ball</span>
+<span class="go">'purple'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="s1">'shoe'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"blue"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="o">.</span><span class="n">shoe</span>
+<span class="go">"blue"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">a</span><span class="p">[</span><span class="s1">'shoe'</span><span class="p">]</span>
+<span class="go">"blue"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span> <span class="o">=</span> <span class="n">EasyDict</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">car</span> <span class="o">=</span> <span class="s2">"green"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="p">[</span><span class="s1">'car'</span><span class="p">]</span>
+<span class="go">"green"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="p">[</span><span class="s1">'car'</span><span class="p">]</span> <span class="o">=</span> <span class="s2">"yellow"</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">b</span><span class="o">.</span><span class="n">car</span>
+<span class="go">'yellow'</span>
+</pre></div>
+</div>
+<p>These <code class="docutils literal notranslate"><span class="pre">EasyDict</span></code> objects should accept keyword arguments, support equality, and have a <code class="docutils literal notranslate"><span class="pre">get</span></code> method, just like dictionaries:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">person</span> <span class="o">=</span> <span class="n">EasyDict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"Trey Hunner"</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">"San Diego"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">person</span><span class="o">.</span><span class="n">location</span>
+<span class="go">'San Diego'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">person</span> <span class="o">==</span> <span class="n">EasyDict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"Trey"</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">"San Diego"</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">person</span> <span class="o">==</span> <span class="n">EasyDict</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="s2">"Trey Hunner"</span><span class="p">,</span> <span class="n">location</span><span class="o">=</span><span class="s2">"San Diego"</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">person</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'profession'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">person</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'profession'</span><span class="p">,</span> <span class="s1">'unknown'</span><span class="p">)</span>
+<span class="go">'unknown'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">person</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s1">'name'</span><span class="p">,</span> <span class="s1">'unknown'</span><span class="p">)</span>
+<span class="go">'Trey Hunner'</span>
+</pre></div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>You could use the <code class="docutils literal notranslate"><span class="pre">__getitem__</span></code> and <code class="docutils literal notranslate"><span class="pre">__setitem__</span></code> methods</p>
+</div>
+</div>
+<div class="section" id="minimum-balance">
+<h3>Minimum Balance<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#minimum-balance" title="Permalink to this headline">¶</a></h3>
+<p>This is the <code class="docutils literal notranslate"><span class="pre">MinimumBalanceAccount</span></code> exercise in <code class="docutils literal notranslate"><span class="pre">inheritance.py</span></code>.</p>
+<p>Create a class <code class="docutils literal notranslate"><span class="pre">MinimumBalanceAccount</span></code> which subclasses <code class="docutils literal notranslate"><span class="pre">BankAccount</span></code>.  This new class should raise an exception whenever the user attempts to withdraw so much money that their account goes below <code class="docutils literal notranslate"><span class="pre">0</span></code>.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">bank_account</span> <span class="kn">import</span> <span class="n">MinimumBalanceAccount</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_account</span> <span class="o">=</span> <span class="n">MinimumBalanceAccount</span><span class="p">()</span>
+<span class="go">Account opened.</span>
+<span class="go">Account balance is $0.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_account</span><span class="o">.</span><span class="n">deposit</span><span class="p">(</span><span class="mi">100</span><span class="p">)</span>
+<span class="go">$100 deposited.</span>
+<span class="go">Account balance is $100.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">my_account</span><span class="o">.</span><span class="n">withdraw</span><span class="p">(</span><span class="mi">200</span><span class="p">)</span>
+<span class="gt">Traceback (most recent call last):</span>
+  File <span class="nb">"&lt;stdin&gt;"</span>, line <span class="m">1</span>, in <span class="n">&lt;module&gt;</span>
+  File <span class="nb">"bank_account.py"</span>, line <span class="m">45</span>, in <span class="n">withdraw</span>
+    <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">"Balance cannot be less than $0"</span><span class="p">)</span>
+<span class="gr">ValueError</span>: <span class="n">Balance cannot be less than $0</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="doubly-linked-node">
+<h3>Doubly-Linked Node<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#doubly-linked-node" title="Permalink to this headline">¶</a></h3>
+<p>This is the <code class="docutils literal notranslate"><span class="pre">DoublyLinkedNode</span></code> exercise in <code class="docutils literal notranslate"><span class="pre">inheritance.py</span></code>.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">Node</span></code> class represents a node with multiple child nodes attached.</p>
+<p>Printing a node displays the “ancestry” of the node, starting with the root or base node, separated by <code class="docutils literal notranslate"><span class="pre">/</span></code> between the nodes, and ending with the node requested.</p>
+<p>Example of creating a root note and child nodes:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">root</span> <span class="o">=</span> <span class="n">Node</span><span class="p">(</span><span class="s1">'A'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">child1</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">make_child</span><span class="p">(</span><span class="s1">'1'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grandchild1</span> <span class="o">=</span> <span class="n">child1</span><span class="o">.</span><span class="n">make_child</span><span class="p">(</span><span class="s1">'a'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grandchild2</span> <span class="o">=</span> <span class="n">child1</span><span class="o">.</span><span class="n">make_child</span><span class="p">(</span><span class="s1">'b'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">child2</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">make_child</span><span class="p">(</span><span class="s1">'2'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Examples of the string representations of these nodes:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">child1</span><span class="p">)</span>
+<span class="go">A / 1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">grandchild1</span><span class="p">)</span>
+<span class="go">A / 1 / a</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">child1</span><span class="o">.</span><span class="n">name</span> <span class="o">=</span> <span class="s1">'9'</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">grandchild2</span><span class="p">)</span>
+<span class="go">A / 9 / b</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">child2</span><span class="p">)</span>
+<span class="go">A / 2</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grandchild1</span><span class="o">.</span><span class="n">name</span>
+<span class="go">'a'</span>
+</pre></div>
+</div>
+<p>More examples:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">Node</span><span class="p">(</span><span class="s2">"Universe"</span><span class="p">)</span>
+<span class="go">          .make_child("Milky Way")</span>
+<span class="go">          .make_child("Solar System")</span>
+<span class="go">          .make_child("Earth")</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="go">Universe / Milky Way / Solar System / Earth</span>
+
+<span class="gp">&gt;&gt;&gt; </span><span class="n">red_panda</span> <span class="o">=</span> <span class="p">(</span>
+<span class="gp">... </span>    <span class="n">Node</span><span class="p">(</span><span class="s2">"Animalia"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="o">.</span><span class="n">make_child</span><span class="p">(</span><span class="s2">"Chordata"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="o">.</span><span class="n">make_child</span><span class="p">(</span><span class="s2">"Mammalia"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="o">.</span><span class="n">make_child</span><span class="p">(</span><span class="s2">"Carnivora"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="o">.</span><span class="n">make_child</span><span class="p">(</span><span class="s2">"Ailuridae"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="o">.</span><span class="n">make_child</span><span class="p">(</span><span class="s2">"Ailurus"</span><span class="p">)</span>
+<span class="gp">... </span>    <span class="o">.</span><span class="n">make_child</span><span class="p">(</span><span class="s2">"A. fulgens"</span><span class="p">)</span>
+<span class="gp">... </span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">red_panda</span><span class="p">)</span>
+<span class="go">Animalia / Chordata / Mammalia / Carnivora / Ailuridae / Ailurus / A. fulgens</span>
+</pre></div>
+</div>
+<p>I’d like you to make a <code class="docutils literal notranslate"><span class="pre">DoublyLinkedNode</span></code> class that extends the <code class="docutils literal notranslate"><span class="pre">Node</span></code> class.
+The method <code class="docutils literal notranslate"><span class="pre">leaves</span></code> returns all the children of the <code class="docutils literal notranslate"><span class="pre">DoublyLinkedNode</span></code>, or if there are no children, it returns a list containing only itself.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">classes</span> <span class="kn">import</span> <span class="n">DoublyLinkedNode</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">root</span> <span class="o">=</span> <span class="n">DoublyLinkedNode</span><span class="p">(</span><span class="s1">'A'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">child1</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">make_child</span><span class="p">(</span><span class="s1">'1'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grandchild1</span> <span class="o">=</span> <span class="n">child1</span><span class="o">.</span><span class="n">make_child</span><span class="p">(</span><span class="s1">'a'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">grandchild2</span> <span class="o">=</span> <span class="n">child1</span><span class="o">.</span><span class="n">make_child</span><span class="p">(</span><span class="s1">'b'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">child2</span> <span class="o">=</span> <span class="n">root</span><span class="o">.</span><span class="n">make_child</span><span class="p">(</span><span class="s1">'2'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">root</span><span class="o">.</span><span class="n">leaves</span><span class="p">()]</span>
+<span class="go">['a', 'b', '2']</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">child1</span><span class="o">.</span><span class="n">leaves</span><span class="p">()]</span>
+<span class="go">['a', 'b']</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">[</span><span class="n">node</span><span class="o">.</span><span class="n">name</span> <span class="k">for</span> <span class="n">node</span> <span class="ow">in</span> <span class="n">child2</span><span class="o">.</span><span class="n">leaves</span><span class="p">()]</span>
+<span class="go">['2']</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fieldtrackermixin">
+<h3>FieldTrackerMixin<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#fieldtrackermixin" title="Permalink to this headline">¶</a></h3>
+<p>This is the <code class="docutils literal notranslate"><span class="pre">FieldTrackerMixin</span></code> exercise in <code class="docutils literal notranslate"><span class="pre">inheritance.py</span></code>.</p>
+<p>Make a <code class="docutils literal notranslate"><span class="pre">FieldTrackerMixin</span></code> class that tracks attributes that have changed on a class.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">FieldTrackerMixin</span></code> class will work with a base class that has a <code class="docutils literal notranslate"><span class="pre">save</span></code> method to track attributes that have changed since the last save.
+You can see an example use below.</p>
+<p>Given a <code class="docutils literal notranslate"><span class="pre">Model</span></code> base class which sets the attributes and has a <code class="docutils literal notranslate"><span class="pre">save</span></code> method like this:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Model</span><span class="p">:</span>
+    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">assert</span> <span class="nb">set</span><span class="p">(</span><span class="n">kwargs</span><span class="o">.</span><span class="n">keys</span><span class="p">())</span> <span class="o">==</span> <span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">attrs</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">setattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+    <span class="k">def</span> <span class="nf">save</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Saving..."</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="n">value</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">changed</span><span class="p">()</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s2">"Changed:"</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="s2">"="</span><span class="p">,</span> <span class="n">value</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">"Saved."</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>And given a <code class="docutils literal notranslate"><span class="pre">Point</span></code> class which inherits from <code class="docutils literal notranslate"><span class="pre">FieldTrackerMixin</span></code> and <code class="docutils literal notranslate"><span class="pre">Model</span></code>:</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="k">class</span> <span class="nc">Point</span><span class="p">(</span><span class="n">FieldTrackerMixin</span><span class="p">,</span> <span class="n">Model</span><span class="p">):</span>
+    <span class="n">fields</span> <span class="o">=</span> <span class="n">attrs</span> <span class="o">=</span> <span class="p">(</span><span class="s1">'x'</span><span class="p">,</span> <span class="s1">'y'</span><span class="p">,</span> <span class="s1">'z'</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This <code class="docutils literal notranslate"><span class="pre">Point</span></code> class should have <code class="docutils literal notranslate"><span class="pre">previous</span></code>, <code class="docutils literal notranslate"><span class="pre">has_changed</span></code>, and <code class="docutils literal notranslate"><span class="pre">changed</span></code> methods which work like this:</p>
+<p>This class should have <code class="docutils literal notranslate"><span class="pre">previous</span></code>, <code class="docutils literal notranslate"><span class="pre">has_changed</span></code>, and <code class="docutils literal notranslate"><span class="pre">changed</span></code> methods which track the given fields and this tracking should be reset whenever the <code class="docutils literal notranslate"><span class="pre">save</span></code> method is called:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">previous</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">has_changed</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">changed</span><span class="p">()</span>
+<span class="go">{}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">previous</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="go">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">has_changed</span><span class="p">(</span><span class="s1">'x'</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">changed</span><span class="p">()</span>
+<span class="go">{'x': 1}</span>
+</pre></div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">previous</span></code>, <code class="docutils literal notranslate"><span class="pre">has_changed</span></code>, and <code class="docutils literal notranslate"><span class="pre">changed</span></code> methods track the fields listed in the class’s <code class="docutils literal notranslate"><span class="pre">fields</span></code> attribute and the tracking should be reset whenever the <code class="docutils literal notranslate"><span class="pre">save</span></code> method is called.</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">p</span> <span class="o">=</span> <span class="n">Point</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">z</span><span class="o">=</span><span class="mi">3</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">x</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">changed</span><span class="p">()</span>
+<span class="go">{'x': 1}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+<span class="go">Saving...</span>
+<span class="go">Changed: x = 1</span>
+<span class="go">Saved.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">p</span><span class="o">.</span><span class="n">changed</span><span class="p">()</span>
+<span class="go">{}</span>
+</pre></div>
+</div>
+<p>You can assume that:</p>
+<ul class="simple">
+<li><p>Child classes of <code class="docutils literal notranslate"><span class="pre">FieldTrackerMixin</span></code> will always define a <code class="docutils literal notranslate"><span class="pre">fields</span></code> attribute of the attributes to track</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">FieldTrackerMixin</span></code> will always be the first class inherited from</p></li>
+<li><p>The initializer of child classes of <code class="docutils literal notranslate"><span class="pre">FieldTrackerMixin</span></code> will always call <code class="docutils literal notranslate"><span class="pre">super().__init__(*args,</span> <span class="pre">**kwargs)</span></code> appropriately after tracked attributes are set</p></li>
+<li><p>Other parent classes will assign to the tracked attributes in their initializers</p></li>
+<li><p>The resetting of fields should happen in the <code class="docutils literal notranslate"><span class="pre">save</span></code> method and all child classes will call <code class="docutils literal notranslate"><span class="pre">super().save()</span></code> if they override <code class="docutils literal notranslate"><span class="pre">save</span></code></p></li>
+</ul>
+</div>
+<div class="section" id="last-updated-dictionary">
+<h3>Last Updated Dictionary<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#last-updated-dictionary" title="Permalink to this headline">¶</a></h3>
+<p>This is the <code class="docutils literal notranslate"><span class="pre">LastUpdatedDictionary</span></code> exercise in <code class="docutils literal notranslate"><span class="pre">inheritance.py</span></code>.</p>
+<p>Make a class <code class="docutils literal notranslate"><span class="pre">LastUpdatedDictionary</span></code> that maintains its items in last-updated order.</p>
+<p>Example:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">LastUpdatedDictionary</span><span class="p">({</span><span class="s1">'a'</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span> <span class="s1">'b'</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span> <span class="s1">'c'</span><span class="p">:</span> <span class="mi">3</span><span class="p">})</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span>
+<span class="go">LastUpdatedDictionary([('a', 1), ('b', 2), ('c', 3)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="s1">'b'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span>
+<span class="go">LastUpdatedDictionary([('a', 1), ('c', 3), ('b', 1)])</span>
+</pre></div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Consider inheriting from the <code class="docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code> class which maintains its values in insertion order.</p>
+</div>
+</div>
+<div class="section" id="orderedcounter">
+<h3>OrderedCounter<a class="headerlink" href="https://pythonic-classes.trey.io/inheritance.html#orderedcounter" title="Permalink to this headline">¶</a></h3>
+<p>This is the <code class="docutils literal notranslate"><span class="pre">OrderedCounter</span></code> exercise in <code class="docutils literal notranslate"><span class="pre">inheritance.py</span></code>.</p>
+<p>Make a class <code class="docutils literal notranslate"><span class="pre">OrderedCounter</span></code> that acts like <code class="docutils literal notranslate"><span class="pre">collections.Counter</span></code> except that it maintains its items in last-updated order (like <code class="docutils literal notranslate"><span class="pre">LastUpdatedDictionary</span></code> above).</p>
+<p>Example:</p>
+<div class="highlight-pycon notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">d</span> <span class="o">=</span> <span class="n">OrderedCounter</span><span class="p">(</span><span class="s1">'hello there'</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span>
+<span class="go">OrderedCounter([('a', 1), ('b', 2), ('c', 3)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span><span class="p">[</span><span class="s1">'b'</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">d</span>
+<span class="go">OrderedCounter([('a', 1), ('c', 3), ('b', 1)])</span>
+</pre></div>
+</div>
+<div class="admonition hint">
+<p class="admonition-title">Hint</p>
+<p>Consider inheriting from the <code class="docutils literal notranslate"><span class="pre">collections.OrderedDict</span></code> class which maintains its values in insertion order.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="https://pythonic-classes.trey.io/dataclasses.html" class="btn btn-neutral float-right" title="Class Helpers" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="https://pythonic-classes.trey.io/public-interfaces.html" class="btn btn-neutral float-left" title="Public Interfaces" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr>
+
+  <div role="contentinfo">
+    <p>
+        © Copyright 2020, Trey Hunner
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org/">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+
+</body></html>
